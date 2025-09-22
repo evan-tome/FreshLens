@@ -39,7 +39,8 @@ Before getting started, ensure you have the following installed:
     *   Add the following environment variables to the `.env` file:
 
         ```
-        GEM2_ACCESS_TOKEN=your_hugging_face_access_token
+        REACT_APP_HF_TOKEN=your_hugging_face_access_token
+        REACT_APP_LOGMEAL_API_KEY=your_logmeal_access_token
         ```
 
 ### Running the Application (For Local Development)
@@ -48,3 +49,5 @@ Before getting started, ensure you have the following installed:
 
 ```bash
 npm start  # or yarn start
+cd FreshLens/paper-trail
+```
