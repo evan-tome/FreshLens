@@ -3,7 +3,7 @@ import './App.css';
 
 const { generateRecipes} = require('./recipeGenerator'); // Import generateRecipesInternal
 
-const API_KEY = process.env.REACT_APP_API_KEY; // Store the API key in one place
+const API_KEY = process.env.REACT_APP_LOGMEAL_API_KEY; // Store the API key in one place
 
 const ImageUploader = () => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -12,14 +12,15 @@ const ImageUploader = () => {
     const [newIngredient, setNewIngredient] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [recipes, setRecipes] = useState(null);  // State to hold the fetched recipes
-    const [loading, setLoading] = useState(false);  // Loading state
+    const [loading, setLoading] = useState(false);  // Loading state for recipe generation
+    const [loadingUpload, setLoadingUpload] = useState(false); // Loading state for image processing
     const [error, setError] = useState(null);       // Error state
 
     // Load ingredients from local storage on component mount
     useEffect(() => {
         const storedData = localStorage.getItem("ingredientsData");
         if (storedData) {
-            setIngredients(JSON.parse(storedData));
+            //setIngredients(JSON.parse(storedData));
         }
     }, []);
 
@@ -43,29 +44,34 @@ const ImageUploader = () => {
             alert("Please select a file first.");
             return;
         }
-    
+
+        setLoadingUpload(true);  // Start loading indicator
+        setError(null);          // Clear any previous errors
+
         const formData = new FormData();
         formData.append("image", selectedFile);
-    
+
         try {
             // Upload the image to Logmeal for segmentation
-            const uploadResponse = await fetch("https://api.logmeal.com/v2/image/segmentation/complete", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${API_KEY}`,  // Use environment variable
-                },
-                body: formData,
-            });
-    
+            const uploadResponse = await fetch(
+                "https://api.logmeal.com/v2/image/segmentation/complete",
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${API_KEY}`,
+                    },
+                    body: formData,
+                }
+            );
+
             if (!uploadResponse.ok) {
-                console.error("Upload failed:", uploadResponse.statusText);
-                return;
+                throw new Error(`Upload failed: ${uploadResponse.statusText}`);
             }
-    
+
             const uploadData = await uploadResponse.json();
             console.log("Image Segmentation Success:", uploadData);
-    
-            // Fetch ingredients information using the imageId from segmentation
+
+            // Fetch ingredients info
             const ingredientsResponse = await fetch(
                 "https://api.logmeal.com/v2/recipe/ingredients",
                 {
@@ -74,35 +80,32 @@ const ImageUploader = () => {
                         Authorization: `Bearer ${API_KEY}`,
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        imageId: uploadData.imageId,
-                    }),
+                    body: JSON.stringify({ imageId: uploadData.imageId }),
                 }
             );
-    
+
             if (!ingredientsResponse.ok) {
-                console.error("Ingredients Fetch failed:", ingredientsResponse.statusText);
-                return;
+                throw new Error(`Ingredients fetch failed: ${ingredientsResponse.statusText}`);
             }
-    
+
             const ingredientsData = await ingredientsResponse.json();
             const sortedIngredients = ingredientsData.foodName || [];
-    
-            // Sort ingredients alphabetically before saving them
-            const sortedAndFilteredIngredients = [...new Set(sortedIngredients)]  // Remove duplicates
-                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())); // Sort alphabetically
-    
-            // Save ingredients to local storage
+
+            const sortedAndFilteredIngredients = [...new Set(sortedIngredients)]
+                .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+
             localStorage.setItem("ingredientsData", JSON.stringify(sortedAndFilteredIngredients));
             setIngredients(sortedAndFilteredIngredients);
-    
+
             console.log("Ingredients data saved to local storage");
-    
-        } catch (error) {
-            console.error("Error uploading file:", error);
+
+        } catch (err) {
+            console.error("Error uploading file:", err);
+            setError("Error processing the image. Please try again.");
+        } finally {
+            setLoadingUpload(false); // Stop loading indicator
         }
     };
-    
 
     const addIngredient = () => {
         if (newIngredient.trim() !== "") {
@@ -168,6 +171,9 @@ const ImageUploader = () => {
             >
                 Find Ingredients
             </button>
+
+            {loadingUpload && <div className="loading-spinner"></div>}
+
             {ingredients.length > 0 && (
                 <div className='list-box' style={{ marginTop: "20px", textAlign: "left", display: "inline-block" }}>
                     <h3>Ingredients Found:</h3>
@@ -195,7 +201,7 @@ const ImageUploader = () => {
                 </div>
             )}
 
-            {loading && <p>Loading recipes...</p>}  {/* Show loading message */}
+            {loading && <div className="loading-spinner"></div>}
             {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Show error message */}
 
             {/* Show recipes if available */}
