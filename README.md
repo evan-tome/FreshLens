@@ -23,8 +23,8 @@ Before getting started, ensure you have the following installed:
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/DCBryon/HackstreetBoys.git
-    cd HackstreetBoys
+    git clone https://github.com/DCBryon/FreshLens.git
+    cd FreshLens
     ```
 
 2.  **Install Dependencies:**
@@ -40,10 +40,7 @@ Before getting started, ensure you have the following installed:
 
         ```
         GEM2_ACCESS_TOKEN=your_hugging_face_access_token
-        # Add any other environment variables here, like API keys, database credentials, etc.
         ```
-
-    *   **Important:** Do *not* commit your `.env` file to version control. It should be in `.gitignore`.
 
 ### Running the Application (For Local Development)
 
