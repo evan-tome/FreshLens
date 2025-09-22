@@ -48,6 +48,7 @@ Before getting started, ensure you have the following installed:
 **Development Server:**
 
 ```bash
-npm start  # or yarn start
 cd FreshLens/paper-trail
+npm start  # or yarn start
+node server.js
 ```
