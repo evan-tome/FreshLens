@@ -42,6 +42,7 @@ h2 {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 80%;
   max-width: 400px;
+  margin-bottom: 100px;
 }
 
 .list-box ul {
@@ -103,7 +104,9 @@ h2 {
 }
 
 .view-recipes-btn {
+  display: flex;
   margin-top: 10px;
+  justify-self: center;
 }
 
 .header-container {
@@ -125,10 +128,11 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   padding: 0;
   border-radius: 50%;
 }
+
 .help-btn:hover {
   background-color: #ce7234;
 }
@@ -160,6 +164,10 @@ h2 {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+.modal-content p {
+  text-align: left;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -188,31 +196,31 @@ img {
 .recipes-box {
   background-color: #f8f8f8;  /* Light grey background */
   border: 2px solid #ddd;    /* Light border */
-  border-radius: 8px;        /* Rounded corners */
-  padding: 20px;             /* Add padding inside the box */
-  margin-top: 20px;          /* Add space from previous content */
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 5px;
   width: 100%;               /* Full width of the container */
   max-width: 800px;          /* Limit max width for readability */
-  margin-left: auto;         /* Center the box horizontally */
-  margin-right: auto;        /* Center the box horizontally */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: justify;
 }
 
 .recipes-box pre {
   white-space: pre-wrap;  /* Allow the text to wrap within the box */
   word-wrap: break-word;  /* Ensure words break appropriately */
-  font-size: 16px;        /* Adjust font size */
-  line-height: 1.5;       /* Increase line spacing for readability */
+  font-size: 16px;
+  line-height: 1.5;
   color: #333;            /* Dark grey text color */
 }
 
-/* You can also adjust the heading in the recipes box */
 .recipes-box h3 {
-  font-size: 20px;         /* Increase heading size */
-  font-weight: bold;       /* Make the heading bold */
+  font-size: 20px;
+  font-weight: bold;
   color: #444;             /* Dark grey color for the heading */
-  margin-bottom: 10px;     /* Space below the heading */
+  margin-bottom: 10px;
 }
 
 .loading-spinner {

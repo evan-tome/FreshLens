@@ -10,7 +10,7 @@ html, body {
 
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(to bottom, #E5EAD6, #D1D7B1);
+  background: #D1D7B1;
   color: #333;
   padding-bottom: 60px;
 }
@@ -40,6 +40,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
+  margin-top: 20px;
 }
 
 /* Navbar */

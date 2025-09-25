@@ -47,7 +47,7 @@ function generateDefaultPrompt(ingredients, dietaryRestrictions) {
     Instructions: step 1, step 2, step 3
     Using some or all of the following ingredients: ${ingredients.join(", ")}.`;
 
-  if (dietaryRestrictions.length > 0) {
+  if (dietaryRestrictions.length > 0) { // TODO: allow user to implement dietary restrictions
     prompt += ` Consider these dietary restrictions: ${dietaryRestrictions.join(", ")}.`;
   }
 
@@ -70,7 +70,7 @@ function simulateApiResponse(ingredients) {
 
 async function generateRecipes(ingredients, dietaryRestrictions) {
   if (!process.env.REACT_APP_HF_TOKEN) {
-    throw new Error("HF_TOKEN environment variable is missing. Generate a token on Hugging Face with Inference permissions.");
+    throw new Error("HF_TOKEN environment variable is missing.");
   }
 
   try {
