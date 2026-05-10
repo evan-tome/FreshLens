@@ -1,6 +1,10 @@
 # FreshLens: A Fresh Persepective On Meal Planning
 
-This platform allows users to upload images of food or take pictures directly, identify the food items present, and then generate healthy recipes using those ingredients.
+## About
+
+This platform uses image recognition and AI-powered recipe generation to help users make healthier meals with the ingredients they already have.
+
+Users can upload images of food or take pictures directly through the application, which then identifies the ingredients present and generates personalized healthy recipe suggestions. The goal is to reduce food waste, simplify meal planning, and make healthy eating more accessible and convenient.
 
 ## Access the Live Application
 
@@ -23,7 +27,7 @@ Before getting started, ensure you have the following installed:
 1.  **Clone the Repository:**
 
     ```bash
-    git clone https://github.com/DCBryon/FreshLens.git
+    git clone https://github.com/evan-tome/FreshLens.git
     cd FreshLens
     ```
 
@@ -49,6 +53,6 @@ Before getting started, ensure you have the following installed:
 
 ```bash
 cd FreshLens/paper-trail
-npm start  # or yarn start
+npm start
 node server.js
 ```
