@@ -16,7 +16,7 @@ const ImageUploader = () => {
     const [loadingUpload, setLoadingUpload] = useState(false); // Loading state for image processing
     const [error, setError] = useState(null);       // Error state
 
-    // Load ingredients from local storage on component mount
+    // Load ingredients from local storage
     useEffect(() => {
         const storedData = localStorage.getItem("ingredientsData");
         if (storedData) {

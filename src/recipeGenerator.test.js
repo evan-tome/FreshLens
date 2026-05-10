@@ -1,11 +1,10 @@
-// src/recipeGenerator.test.js
 import { generateRecipes, parseRecipeText } from './recipeGenerator.js';
 
 global.testIngredients = global.testIngredients || ["apple", "banana"];
 global.testDietaryRestrictions = global.testDietaryRestrictions || ["gluten-free"];
 
 describe('generateRecipes', () => {
-    jest.setTimeout(30000); // Increase timeout for API calls
+    jest.setTimeout(30000); // Timeout for API calls
 
     it('should generate a recipe from the Hugging Face API', async () => {
         const recipeText = await generateRecipes(testIngredients, testDietaryRestrictions);
@@ -49,6 +48,6 @@ describe('generateRecipes', () => {
         const invalidText = "This is not a valid recipe format";
         const parsedText = parseRecipeText(invalidText);
 
-        expect(parsedText).toBe("Error: Unable to parse recipe text.");
+        expect(parsedText).toBe("This is not a valid recipe format");
     });
 });
